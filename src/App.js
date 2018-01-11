@@ -7,7 +7,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import BaconList from './components/BaconList';
 import BaconForm from './components/BaconForm';
-
+import {Link} from 'react-router-dom';
 const AppWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -26,11 +26,10 @@ class App extends Component {
 
   updateBacon = (numberOfParagraphs) => {
     this.setState({numberOfParagraphs})
-    this._getBacon()
-
+    this.getBacon()
   }
 
-  _getBacon = () => {
+  getBacon = () => {
     const numberOfParagraphs = this.state.numberOfParagraphs;
     axios.get(`https://baconipsum.com/api/?type=all-meat&paras=${numberOfParagraphs}`)
     .then((response) => {
@@ -40,7 +39,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this._getBacon();
+    this.getBacon();
   }
 
   render() {

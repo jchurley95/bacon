@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Bacon from './Bacon';
+import {Link} from 'react-router-dom';
 
 class BaconList extends Component {
     
@@ -19,6 +20,7 @@ class BaconList extends Component {
         return (
             <div>
                 {baconComponent}
+                <Link to="/baconForm">I would like to change the number of bacon currently available</Link>
             </div>
         );
     }
