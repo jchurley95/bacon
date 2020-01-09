@@ -4,37 +4,30 @@ import {Redirect} from 'react-router-dom'
 
 class BaconForm extends Component {
     state = {
-            numberOfParagraphs: 0,
-            redirectToAllTheBacon: false
-        }
+        redirectToAllTheBacon: false
+    }
     
     handleChange = (e) => {
-        let newState = {...this.state}
-        let value = e.target.value
-        newState[e.target.name] = value
-        this.setState(newState)
+        e.preventDefault();
+        this.props.updateBacon(e.target.value)
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.updateBacon(this.state.numberOfParagraphs)
-        this.state.redirectToAllTheBacon = true
+    redirectToTheBaconPlease = () => {
+        this.setState({redirectToAllTheBacon: true})
     }
 
     render() {
-        
+        if (this.state.redirectToAllTheBacon) {
+            return <Redirect to="/" />
+        }
         return (
             <div>
-
-                <form onSubmit={this.handleSubmit}>
-
-
-                    <label htmlFor="numberOfParagraphs">Okay, that's fair, how much bacon would you like? </label>
-                    <br />
-                    <input onChange={this.handleChange} placeholder="Number of Bacon" name="numberOfParagraphs" type="text" />
-                    <br/>
-                    <input value="Give me that much bacon please" type="Submit" />
-                </form>
+                <label htmlFor="numberOfParagraphs">Okay, that's fair, how much bacon would you like? </label>
+                <br />
+                <h3>Currently have {this.props.numberOfParagraphs} bacon</h3>
+                <input onChange={this.handleChange} placeholder="Number of Bacon" name="numberOfParagraphs" type="text" />
+                <br/>
+                <button onClick={this.redirectToTheBaconPlease}>Take me back to the bacon please</button>
                 <hr />
                 <Link to="/">Nevermind, I already have enough bacon</Link>
             </div>
